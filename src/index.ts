@@ -127,6 +127,9 @@ async function run() {
           pr_number,
         })
       );
+      core.info(`Review app ID #{reviewApp.id} ${JSON.stringify(reviewApp.id)}`);
+      core.info(`Review app name #{reviewApp.name} ${JSON.stringify(reviewApp.name)}`);
+      core.info(`Source blob: ${JSON.stringify(source_blob)}`);
       const response = await heroku!.post("/apps/${reviewApp.id}/builds", {
         body: {
           source_blob: {
