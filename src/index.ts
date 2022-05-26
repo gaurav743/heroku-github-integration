@@ -106,13 +106,17 @@ async function run() {
 
     let reviewApp = findReviewApp();
 
-    const { url }: TarballResponse =
+    const { url , version, checksum }: TarballResponse =
       await octokit.rest.repos.downloadTarballArchive({
         method: "HEAD",
         owner: issue.owner,
         repo: issue.repo,
         ref: branch,
       });
+    
+     core.info(`url ${url}`);
+     core.info(`version ${version}`);
+     core.info(`checksum ${checksum}`);
 
     try {
       core.info("Updating Review App");
@@ -123,6 +127,7 @@ async function run() {
           source_blob: {
             url,
             version,
+            checksum
           },
           pr_number,
         })
@@ -135,6 +140,7 @@ async function run() {
           source_blob: {
             url,
             version,
+            checksum
           }
         },
       });
