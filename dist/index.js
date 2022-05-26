@@ -2162,7 +2162,7 @@ function run() {
                 core.error("Couldn't connect to GitHub, make sure the GITHUB_TOKEN is a valid token");
                 return;
             }
-            let reviewApp = findReviewApp();
+            let reviewApp = yield findReviewApp();
             const { url } = yield octokit.rest.repos.downloadTarballArchive({
                 method: "HEAD",
                 owner: issue.owner,
