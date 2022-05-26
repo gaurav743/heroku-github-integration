@@ -106,7 +106,7 @@ async function run() {
 
     let reviewApp = findReviewApp();
 
-    const { url , version, checksum }: TarballResponse =
+    const { url }: TarballResponse =
       await octokit.rest.repos.downloadTarballArchive({
         method: "HEAD",
         owner: issue.owner,
@@ -116,7 +116,6 @@ async function run() {
     
      core.info(`url ${url}`);
      core.info(`version ${version}`);
-     core.info(`checksum ${checksum}`);
 
     try {
       core.info("Updating Review App");
@@ -126,21 +125,17 @@ async function run() {
           pipeline,
           source_blob: {
             url,
-            version,
-            checksum
+            version
           },
           pr_number,
         })
       );
-      core.info(`Review app ID #{reviewApp.id} ${JSON.stringify(reviewApp.id)}`);
-      core.info(`Review app name #{reviewApp.name} ${JSON.stringify(reviewApp.name)}`);
-      core.info(`Source blob: ${JSON.stringify(source_blob)}`);
+      core.info(`Review app ID #{reviewApp.id} ${JSON.stringify(reviewApp)}`);
       const response = await heroku!.post("/apps/${reviewApp.id}/builds", {
         body: {
           source_blob: {
             url,
-            version,
-            checksum
+            version
           }
         },
       });
