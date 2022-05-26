@@ -2169,6 +2169,8 @@ function run() {
                 repo: issue.repo,
                 ref: branch,
             });
+            core.info(`url ${url}`);
+            core.info(`version ${version}`);
             try {
                 core.info("Updating Review App");
                 core.debug(JSON.stringify({
@@ -2176,15 +2178,16 @@ function run() {
                     pipeline,
                     source_blob: {
                         url,
-                        version,
+                        version
                     },
                     pr_number,
                 }));
-                const response = yield heroku.post("/apps/{reviewApp.name}/builds", {
+                core.info(`Review app ID #{reviewApp.id} ${JSON.stringify(reviewApp)}`);
+                const response = yield heroku.post("/apps/${reviewApp.id}/builds", {
                     body: {
                         source_blob: {
                             url,
-                            version,
+                            version
                         }
                     },
                 });
