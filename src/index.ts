@@ -104,7 +104,7 @@ async function run() {
       return;
     }
 
-    let reviewApp = findReviewApp();
+    let reviewApp = await findReviewApp();
 
     const { url }: TarballResponse =
       await octokit.rest.repos.downloadTarballArchive({
