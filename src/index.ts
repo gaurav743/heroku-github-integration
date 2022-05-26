@@ -127,7 +127,7 @@ async function run() {
           pr_number,
         })
       );
-      const response = await heroku!.post("/apps/{reviewApp.name}/builds", {
+      const response = await heroku!.post("/apps/${reviewApp.id}/builds", {
         body: {
           source_blob: {
             url,
