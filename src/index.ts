@@ -130,12 +130,13 @@ async function run() {
           pr_number,
         })
       );
-      core.info(`Review app ID #{reviewApp.id} ${JSON.stringify(reviewApp)}`);
+      core.info(`Review app ID #{reviewApp.id} ${reviewApp.id}`);
       const response = await heroku!.post("/apps/${reviewApp.id}/builds", {
         body: {
           source_blob: {
             url,
-            version
+            version: "",
+            checksum: ""
           }
         },
       });
